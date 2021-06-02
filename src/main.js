@@ -4,6 +4,7 @@ import {createBoard} from "./view/board.js";
 import {createTaskEditTemplate} from "./view/editTask.js";
 import {createTask} from "./view/task.js";
 import {createLoadBtn} from "./view/loadButton.js";
+import {generateFilter} from "./mock/generateFilter.js";
 
 const TASK_COUNT = 3;
 const mainHeader = document.querySelector(`.main__control`);
@@ -13,7 +14,7 @@ const renderElement = (container, element, place) => {
 };
 
 renderElement(mainHeader, createMenu(), `beforeend`);
-renderElement(main, createFilters(), `beforeend`);
+renderElement(main, createFilters(generateFilter()), `beforeend`);
 renderElement(main, createBoard(), `beforeend`);
 
 const board = document.querySelector(`.board`);
