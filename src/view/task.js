@@ -1,5 +1,6 @@
-export const createTask = () => {
-  return `<article class="card card--black">
+export const createTask = (options) => {
+  const {desc, date, repeat, color, isArchive, isFavourite} = options;
+  return `<article class="card card--${color}">
             <div class="card__form">
               <div class="card__inner">
                 <div class="card__control">
@@ -32,7 +33,7 @@ export const createTask = () => {
                     <div class="card__dates">
                       <div class="card__date-deadline">
                         <p class="card__input-deadline-wrap">
-                          <span class="card__date">23 September</span>
+                          <span class="card__date">${date}</span>
                         </p>
                       </div>
                     </div>
