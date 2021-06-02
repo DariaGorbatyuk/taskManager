@@ -12,6 +12,7 @@ const generateDescription = () => {
     `Make my homework`,
     `feed my dogs`,
     `Wash the dishes`,
+    `kiss my kat`
   ];
   return descriptions[randomInt(0, randomInt.length - 1)];
 };
