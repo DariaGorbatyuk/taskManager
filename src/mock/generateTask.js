@@ -6,8 +6,7 @@ const randomInt = (a = 1, b = 0) => {
   const upper = Math.floor(Math.max(a, b));
   return Math.floor(lower + Math.random() * (upper - lower + 1));
 };
-
-const COLORS = [`black`, `yellow`, `blue`, `green, pink`];
+const COLORS = [`black`, `yellow`, `blue`, `green`, `pink`];
 
 const generateDescription = () => {
   const descriptions = [
@@ -16,7 +15,7 @@ const generateDescription = () => {
     `Wash the dishes`,
     `kiss my kat`,
   ];
-  return descriptions[randomInt(0, randomInt.length - 1)];
+  return descriptions[randomInt(0, descriptions.length - 1)];
 };
 
 const generateDate = () => {

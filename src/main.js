@@ -8,7 +8,8 @@ import {generateFilter} from "./mock/generateFilter.js";
 import {generateTask} from "./mock/generateTask.js";
 
 const TASK_COUNT = 3;
-const TASKS = new Array(TASK_COUNT).map(generateTask);
+const TASKS = new Array(TASK_COUNT).fill().map(generateTask);
+console.dir(TASKS);
 const mainHeader = document.querySelector(`.main__control`);
 const main = document.querySelector(`main`);
 const renderElement = (container, element, place) => {

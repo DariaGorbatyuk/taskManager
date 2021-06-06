@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 
 export const createTask = (options) => {
-  const {desc, date, color} = options;
-  const prettyDate = date === null ? `` : dayjs(date).format(`D MMMM`);
+  const {description, dueDate, repeat, color} = options;
+  const prettyDate = dueDate === null ? `` : dayjs(dueDate).format(`D MMMM`);
   return `<article class="card card--${color}">
             <div class="card__form">
               <div class="card__inner">
@@ -28,7 +28,7 @@ export const createTask = (options) => {
                 </div>
 
                 <div class="card__textarea-wrap">
-                  <p class="card__text">${desc}</p>
+                  <p class="card__text">${description}</p>
                 </div>
 
                 <div class="card__settings">
