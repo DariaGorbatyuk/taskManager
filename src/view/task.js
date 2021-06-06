@@ -1,5 +1,8 @@
+import dayjs from 'dayjs';
+
 export const createTask = (options) => {
-  const {desc, date, repeat, color, isArchive, isFavourite} = options;
+  const {desc, date, color} = options;
+  const prettyDate = date === null ? `` : dayjs(date).format(`D MMMM`);
   return `<article class="card card--${color}">
             <div class="card__form">
               <div class="card__inner">
@@ -25,7 +28,7 @@ export const createTask = (options) => {
                 </div>
 
                 <div class="card__textarea-wrap">
-                  <p class="card__text">Example task with default color.</p>
+                  <p class="card__text">${desc}</p>
                 </div>
 
                 <div class="card__settings">
@@ -33,7 +36,7 @@ export const createTask = (options) => {
                     <div class="card__dates">
                       <div class="card__date-deadline">
                         <p class="card__input-deadline-wrap">
-                          <span class="card__date">${date}</span>
+                          <span class="card__date">${prettyDate}</span>
                         </p>
                       </div>
                     </div>
