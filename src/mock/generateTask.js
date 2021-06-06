@@ -1,4 +1,6 @@
 //https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_random
+import dayjs from "dayjs";
+
 const randomInt = (a = 1, b = 0) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -12,23 +14,34 @@ const generateDescription = () => {
     `Make my homework`,
     `feed my dogs`,
     `Wash the dishes`,
-    `kiss my kat`
+    `kiss my kat`,
   ];
   return descriptions[randomInt(0, randomInt.length - 1)];
+};
+
+const generateDate = () => {
+  const isDate = Boolean(randomInt(0, 1));
+
+  if (!isDate) {
+    return null;
+  }
+  const MAX_GAP = 7;
+  const day = randomInt(-MAX_GAP, MAX_GAP);
+  return dayjs().add(day, `day`).toDate();
 };
 
 export const generateTask = () => {
   return {
     description: generateDescription(),
-    dueDate: null,
+    dueDate: generateDate(),
     repeat: {
-      mo: randomInt(0, 1),
-      tu: randomInt(0, 1),
-      we: randomInt(0, 1),
-      th: randomInt(0, 1), randomInt,
-      fr: randomInt(0, 1),
-      sa: randomInt(0, 1),
-      su: randomInt(0, 1),
+      mo: Boolean(randomInt(0, 1)),
+      tu: Boolean(randomInt(0, 1)),
+      we: Boolean(randomInt(0, 1)),
+      th: Boolean(randomInt(0, 1)),
+      fr: Boolean(randomInt(0, 1)),
+      sa: Boolean(randomInt(0, 1)),
+      su: Boolean(randomInt(0, 1)),
     },
     color: COLORS[randomInt(0, COLORS.length - 1)],
     isArchive: randomInt(0, 1),
