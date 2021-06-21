@@ -13,7 +13,7 @@ export const createTaskEditTemplate = (options) => {
               </button>
 
               ${dueDate ?
-      `<fieldset class="card__date-deadline">
+    `<fieldset class="card__date-deadline">
                 <label class="card__input-deadline-wrap">
                   <input
                     class="card__date"
@@ -27,108 +27,52 @@ export const createTaskEditTemplate = (options) => {
   };
 
   const setRepeat = () => {
+    const daysGenerate = () => {
+      return Object.entries(repeat).map(([day, value]) => {
+        return `<input
+                    class="visually-hidden card__repeat-day-input"
+                    type="checkbox"
+                    id="repeat-${day}-4"
+                    name="repeat"
+                    value="${day}"
+                    ${value ? `checked` : ``}
+                  />
+                  <label class="card__repeat-day" for="repeat-${day}-4"
+                    >${day}</label
+                  >`;
+      }).join(``);
+    };
     return ` <button class="card__repeat-toggle" type="button">
                 repeat:<span class="card__repeat-status">${isRepeat ? `yes` : `no`}</span>
               </button>
 
             ${isRepeat ? `<fieldset class="card__repeat-days">
                 <div class="card__repeat-days-inner">
-                  <input
-                    class="visually-hidden card__repeat-day-input"
-                    type="checkbox"
-                    id="repeat-mo-4"
-                    name="repeat"
-                    value="mo"
-                  />
-                  <label class="card__repeat-day" for="repeat-mo-4"
-                    >mo</label
-                  >
-                  <input
-                    class="visually-hidden card__repeat-day-input"
-                    type="checkbox"
-                    id="repeat-tu-4"
-                    name="repeat"
-                    value="tu"
-                    checked
-                  />
-                  <label class="card__repeat-day" for="repeat-tu-4"
-                    >tu</label
-                  >
-                  <input
-                    class="visually-hidden card__repeat-day-input"
-                    type="checkbox"
-                    id="repeat-we-4"
-                    name="repeat"
-                    value="we"
-                  />
-                  <label class="card__repeat-day" for="repeat-we-4"
-                    >we</label
-                  >
-                  <input
-                    class="visually-hidden card__repeat-day-input"
-                    type="checkbox"
-                    id="repeat-th-4"
-                    name="repeat"
-                    value="th"
-                  />
-                  <label class="card__repeat-day" for="repeat-th-4"
-                    >th</label
-                  >
-                  <input
-                    class="visually-hidden card__repeat-day-input"
-                    type="checkbox"
-                    id="repeat-fr-4"
-                    name="repeat"
-                    value="fr"
-                    checked
-                  />
-                  <label class="card__repeat-day" for="repeat-fr-4"
-                    >fr</label
-                  >
-                  <input
-                    class="visually-hidden card__repeat-day-input"
-                    type="checkbox"
-                    name="repeat"
-                    value="sa"
-                    id="repeat-sa-4"
-                  />
-                  <label class="card__repeat-day" for="repeat-sa-4"
-                    >sa</label
-                  >
-                  <input
-                    class="visually-hidden card__repeat-day-input"
-                    type="checkbox"
-                    id="repeat-su-4"
-                    name="repeat"
-                    value="su"
-                    checked
-                  />
-                  <label class="card__repeat-day" for="repeat-su-4"
-                    >su</label
-                  >
+                  ${daysGenerate()};
                 </div>
               </fieldset>` : ``}  `;
   };
 
   const setColors = () => {
-    return COLORS.map((colorItem) => {
+    return COLORS.map((colorItem, index) => {
       return ` <input
                 type="radio"
-                id="color-${colorItem}-4"
+                id="color-${colorItem}-${index}"
                 class="card__color-input card__color-input--${colorItem} visually-hidden"
                 name="color"
                 value="${colorItem}"
                 ${colorItem === color ? `checked` : ``}
               />
               <label
-                for="color-${colorItem}-4"
+                for="color-${colorItem}-${index}"
                 class="card__color card__color--${colorItem}"
                 >${colorItem}</label
               >`;
     }).join(``);
   };
+  const dateMarkup = setDate();
   const colorsMarkup = setColors();
-
+  const repeatMarkup = setRepeat();
   return `<article class="card card--edit card--${color} ${repeatClass}">
     <form class="card__form" method="get">
       <div class="card__inner">
@@ -151,9 +95,8 @@ export const createTaskEditTemplate = (options) => {
         <div class="card__settings">
           <div class="card__details">
             <div class="card__dates">
-             ${setDate()}
-
-             ${setRepeat()}
+             ${dateMarkup}
+             ${repeatMarkup}
             </div>
           </div>
 

@@ -9,7 +9,7 @@ import {generateTask} from "./mock/generateTask.js";
 
 const TASK_COUNT = 4;
 const TASKS = new Array(TASK_COUNT).fill().map(generateTask);
-console.dir(TASKS);
+
 const mainHeader = document.querySelector(`.main__control`);
 const main = document.querySelector(`main`);
 const renderElement = (container, element, place) => {
