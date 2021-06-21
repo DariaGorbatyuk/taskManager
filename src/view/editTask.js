@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import {COLORS} from "../const.js";
 
 export const createTaskEditTemplate = (options) => {
   const {description, dueDate, color, isArchive, isFavorite, repeat} = options;
@@ -25,35 +26,12 @@ export const createTaskEditTemplate = (options) => {
               </fieldset>` : ``}`;
   };
 
-  return `<article class="card card--edit card--${color} ${repeatClass}">
-    <form class="card__form" method="get">
-      <div class="card__inner">
-        <div class="card__color-bar">
-          <svg class="card__color-bar-wave" width="100%" height="10">
-            <use xlink:href="#wave"></use>
-          </svg>
-        </div>
-
-        <div class="card__textarea-wrap">
-          <label>
-            <textarea
-              class="card__text"
-              placeholder="Start typing your text here..."
-              name="text"
-            >${description}</textarea>
-          </label>
-        </div>
-
-        <div class="card__settings">
-          <div class="card__details">
-            <div class="card__dates">
-             ${setDate()}
-
-              <button class="card__repeat-toggle" type="button">
-                repeat:<span class="card__repeat-status">yes</span>
+  const setRepeat = () => {
+    return ` <button class="card__repeat-toggle" type="button">
+                repeat:<span class="card__repeat-status">${isRepeat ? `yes` : `no`}</span>
               </button>
 
-              <fieldset class="card__repeat-days">
+            ${isRepeat ? `<fieldset class="card__repeat-days">
                 <div class="card__repeat-days-inner">
                   <input
                     class="visually-hidden card__repeat-day-input"
@@ -129,74 +107,60 @@ export const createTaskEditTemplate = (options) => {
                     >su</label
                   >
                 </div>
-              </fieldset>
+              </fieldset>` : ``}  `;
+  };
+
+  const setColors = () => {
+    return COLORS.map((colorItem) => {
+      return ` <input
+                type="radio"
+                id="color-${colorItem}-4"
+                class="card__color-input card__color-input--${colorItem} visually-hidden"
+                name="color"
+                value="${colorItem}"
+                ${colorItem === color ? `checked` : ``}
+              />
+              <label
+                for="color-${colorItem}-4"
+                class="card__color card__color--${colorItem}"
+                >${colorItem}</label
+              >`;
+    }).join(``);
+  };
+  const colorsMarkup = setColors();
+
+  return `<article class="card card--edit card--${color} ${repeatClass}">
+    <form class="card__form" method="get">
+      <div class="card__inner">
+        <div class="card__color-bar">
+          <svg class="card__color-bar-wave" width="100%" height="10">
+            <use xlink:href="#wave"></use>
+          </svg>
+        </div>
+
+        <div class="card__textarea-wrap">
+          <label>
+            <textarea
+              class="card__text"
+              placeholder="Start typing your text here..."
+              name="text"
+            >${description}</textarea>
+          </label>
+        </div>
+
+        <div class="card__settings">
+          <div class="card__details">
+            <div class="card__dates">
+             ${setDate()}
+
+             ${setRepeat()}
             </div>
           </div>
 
           <div class="card__colors-inner">
             <h3 class="card__colors-title">Color</h3>
             <div class="card__colors-wrap">
-              <input
-                type="radio"
-                id="color-black-4"
-                class="card__color-input card__color-input--black visually-hidden"
-                name="color"
-                value="black"
-              />
-              <label
-                for="color-black-4"
-                class="card__color card__color--black"
-                >black</label
-              >
-              <input
-                type="radio"
-                id="color-yellow-4"
-                class="card__color-input card__color-input--yellow visually-hidden"
-                name="color"
-                value="yellow"
-                checked
-              />
-              <label
-                for="color-yellow-4"
-                class="card__color card__color--yellow"
-                >yellow</label
-              >
-              <input
-                type="radio"
-                id="color-blue-4"
-                class="card__color-input card__color-input--blue visually-hidden"
-                name="color"
-                value="blue"
-              />
-              <label
-                for="color-blue-4"
-                class="card__color card__color--blue"
-                >blue</label
-              >
-              <input
-                type="radio"
-                id="color-green-4"
-                class="card__color-input card__color-input--green visually-hidden"
-                name="color"
-                value="green"
-              />
-              <label
-                for="color-green-4"
-                class="card__color card__color--green"
-                >green</label
-              >
-              <input
-                type="radio"
-                id="color-pink-4"
-                class="card__color-input card__color-input--pink visually-hidden"
-                name="color"
-                value="pink"
-              />
-              <label
-                for="color-pink-4"
-                class="card__color card__color--pink"
-                >pink</label
-              >
+             ${colorsMarkup}
             </div>
           </div>
         </div>
