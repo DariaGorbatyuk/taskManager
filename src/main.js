@@ -7,7 +7,7 @@ import {createLoadBtn} from "./view/loadButton.js";
 import {generateFilter} from "./mock/generateFilter.js";
 import {generateTask} from "./mock/generateTask.js";
 
-const TASK_COUNT = 3;
+const TASK_COUNT = 4;
 const TASKS = new Array(TASK_COUNT).fill().map(generateTask);
 console.dir(TASKS);
 const mainHeader = document.querySelector(`.main__control`);
@@ -23,8 +23,8 @@ renderElement(main, createBoard(), `beforeend`);
 const board = document.querySelector(`.board`);
 const boardTasks = document.querySelector(`.board__tasks`);
 
-renderElement(boardTasks, createTaskEditTemplate(), `beforeend`);
-for (let i = 0; i < TASK_COUNT; i++) {
+renderElement(boardTasks, createTaskEditTemplate(TASKS[0]), `beforeend`);
+for (let i = 1; i < TASK_COUNT; i++) {
   renderElement(boardTasks, createTask(TASKS[i]), `beforeend`);
 }
 renderElement(board, createLoadBtn(), `beforeend`);

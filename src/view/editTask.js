@@ -1,5 +1,31 @@
-export const createTaskEditTemplate = () => {
-  return `<article class="card card--edit card--yellow card--repeat">
+import dayjs from "dayjs";
+
+export const createTaskEditTemplate = (options) => {
+  const {description, dueDate, color, isArchive, isFavorite, repeat} = options;
+  const isRepeat = Object.values(repeat).some(Boolean);
+  const repeatClass = isRepeat ? `card--repeat` : ``;
+  const deadlineClass = `card--deadline`;
+
+  const setDate = () => {
+    return ` <button class="card__date-deadline-toggle" type="button">
+                date: <span class="card__date-status">${dueDate ? `yes` : `no`}</span>
+              </button>
+
+              ${dueDate ?
+      `<fieldset class="card__date-deadline">
+                <label class="card__input-deadline-wrap">
+                  <input
+                    class="card__date"
+                    type="text"
+                    placeholder=""
+                    name="date"
+                    value="${dayjs(dueDate).format(`D MMMM`)}"
+                  />
+                </label>
+              </fieldset>` : ``}`;
+  };
+
+  return `<article class="card card--edit card--${color} ${repeatClass}">
     <form class="card__form" method="get">
       <div class="card__inner">
         <div class="card__color-bar">
@@ -14,28 +40,14 @@ export const createTaskEditTemplate = () => {
               class="card__text"
               placeholder="Start typing your text here..."
               name="text"
-            >This is example of task edit. You can set date and chose repeating days and color.</textarea>
+            >${description}</textarea>
           </label>
         </div>
 
         <div class="card__settings">
           <div class="card__details">
             <div class="card__dates">
-              <button class="card__date-deadline-toggle" type="button">
-                date: <span class="card__date-status">yes</span>
-              </button>
-
-              <fieldset class="card__date-deadline">
-                <label class="card__input-deadline-wrap">
-                  <input
-                    class="card__date"
-                    type="text"
-                    placeholder=""
-                    name="date"
-                    value="23 September"
-                  />
-                </label>
-              </fieldset>
+             ${setDate()}
 
               <button class="card__repeat-toggle" type="button">
                 repeat:<span class="card__repeat-status">yes</span>
