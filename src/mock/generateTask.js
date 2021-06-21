@@ -33,6 +33,9 @@ export const generateTask = () => {
   return {
     description: generateDescription(),
     dueDate: generateDate(),
+    color: COLORS[randomInt(0, COLORS.length - 1)],
+    isArchive: randomInt(0, 1),
+    isFavorite: randomInt(0, 1),
     repeat: {
       mo: Boolean(randomInt(0, 1)),
       tu: Boolean(randomInt(0, 1)),
@@ -42,8 +45,5 @@ export const generateTask = () => {
       sa: Boolean(randomInt(0, 1)),
       su: Boolean(randomInt(0, 1)),
     },
-    color: COLORS[randomInt(0, COLORS.length - 1)],
-    isArchive: randomInt(0, 1),
-    isFavorite: randomInt(0, 1),
   };
 };

@@ -1,21 +1,26 @@
 import dayjs from 'dayjs';
 
 export const createTask = (options) => {
-  const {description, dueDate, repeat, color} = options;
+  const {description, dueDate, color, isArchive, isFavorite, repeat} = options;
   const prettyDate = dueDate === null ? `` : dayjs(dueDate).format(`D MMMM`);
-  return `<article class="card card--${color}">
+  const isActiveArchiveBtn = isArchive ? `` : `card__btn--disabled`;
+  const isActiveFavoriteBtn = isFavorite ? `` : `card__btn--disabled`;
+  const isRepeat = Object.values(repeat).some(Boolean);
+  const repeatClass = isRepeat ? `card--repeat` : ``;
+
+  return `<article class="card card--${color} ${repeatClass}">
             <div class="card__form">
               <div class="card__inner">
                 <div class="card__control">
                   <button type="button" class="card__btn card__btn--edit">
                     edit
                   </button>
-                  <button type="button" class="card__btn card__btn--archive">
+                  <button type="button" class="card__btn card__btn--archive ${isActiveArchiveBtn}">
                     archive
                   </button>
                   <button
                     type="button"
-                    class="card__btn card__btn--favorites"
+                    class="card__btn card__btn--favorites ${isActiveFavoriteBtn}"
                   >
                     favorites
                   </button>
