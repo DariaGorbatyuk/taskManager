@@ -2,10 +2,9 @@ import dayjs from "dayjs";
 import {COLORS} from "../const.js";
 
 export const createTaskEditTemplate = (options) => {
-  const {description, dueDate, color, isArchive, isFavorite, repeat} = options;
+  const {description, dueDate, color, repeat} = options;
   const isRepeat = Object.values(repeat).some(Boolean);
   const repeatClass = isRepeat ? `card--repeat` : ``;
-  const deadlineClass = `card--deadline`;
 
   const setDate = () => {
     return ` <button class="card__date-deadline-toggle" type="button">

@@ -41,7 +41,7 @@ function onLoadBtnClick(evt) {
   TASKS.slice(prevTaskCount, showingTaskCount).forEach((task) => {
     renderElement(boardTasks, createTask(task), `beforeend`);
   });
-  if (showingTaskCount > TASK_COUNT) {
+  if (showingTaskCount >= TASK_COUNT) {
     loadBtn.remove();
   }
 }
