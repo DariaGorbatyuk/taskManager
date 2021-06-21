@@ -3,12 +3,14 @@ import dayjs from 'dayjs';
 export const createTask = (options) => {
   const {description, dueDate, color, isArchive, isFavorite, repeat} = options;
   const prettyDate = dueDate === null ? `` : dayjs(dueDate).format(`D MMMM`);
+  const isExpired = dueDate instanceof Date && dueDate < Date.now();
   const isActiveArchiveBtn = isArchive ? `` : `card__btn--disabled`;
   const isActiveFavoriteBtn = isFavorite ? `` : `card__btn--disabled`;
   const isRepeat = Object.values(repeat).some(Boolean);
   const repeatClass = isRepeat ? `card--repeat` : ``;
+  const deadlineClass = isExpired ? `card--deadline` : ``;
 
-  return `<article class="card card--${color} ${repeatClass}">
+  return `<article class="card card--${color} ${repeatClass} ${deadlineClass}">
             <div class="card__form">
               <div class="card__inner">
                 <div class="card__control">
